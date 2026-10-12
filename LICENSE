@@ -1,21 +1,67 @@
-MIT License
+PeaceOut
+Copyright (c) 2026 Your Start in IT. All rights reserved.
 
-Copyright (c) 2026 Vladyslav Shapoval
+https://github.com/vlihgt/PeaceOut
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+------------------------------------------------------------------------
+1. WHAT THIS LICENSE IS
+------------------------------------------------------------------------
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This software is source-available, not open source. No permissive
+open-source license (MIT, GPL, Apache, BSD, etc.) applies here.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+The copyright holder (Your Start in IT) retains all rights not
+expressly granted below.
+
+------------------------------------------------------------------------
+2. WHAT YOU MAY DO (no permission needed)
+------------------------------------------------------------------------
+
+a) View and read the source code on GitHub.
+b) Download it and install the extension in your own copy of Chrome,
+   for your own personal use.
+c) Report bugs or suggest features via this repository's issues.
+d) Keep a private fork or a local copy for your own experimentation,
+   as long as you never publish or redistribute it.
+
+------------------------------------------------------------------------
+3. WHAT YOU MAY NOT DO (permission required)
+------------------------------------------------------------------------
+
+Without prior written permission from the copyright holder, you may
+not, in whole or in part:
+
+a) Re-upload, mirror, or publish this code (modified or not) to any
+   other repository, website, store, or platform.
+b) Redistribute, sell, sublicense, or otherwise hand this software to
+   a third party.
+c) Publish a derivative work, fork, remix, rebrand, or port of it.
+d) Submit this code, or a derivative of it, to the Chrome Web Store or
+   any other extension marketplace.
+e) Present yourself as the author or origin of this project.
+f) Remove or alter the copyright and license notice.
+
+------------------------------------------------------------------------
+4. PERMISSION
+------------------------------------------------------------------------
+
+For anything outside Section 2, ask first:
+    https://github.com/vlihgt/PeaceOut/issues
+
+No response is not consent.
+
+------------------------------------------------------------------------
+5. NO WARRANTY
+------------------------------------------------------------------------
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY
+CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS
+USE.
+
+This extension reads your camera feed and runs hand tracking locally
+in your browser. You are responsible for complying with the laws,
+workplace policies, and consent requirements of your own call
+participants.
+
+END OF TERMS

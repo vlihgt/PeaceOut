@@ -56,4 +56,4 @@ Everything — camera frames, the empty-room photo, hand tracking — stays in y
 
 ## License
 
-Do whatever you want with this — personal use, forks, remixes, credit appreciated but not required.
+Source-available, not open source — see [LICENSE](LICENSE). Download it and use it for free, personally, however you like. Publishing a copy, a fork, or a modified version elsewhere needs permission first; ask via an issue on this repo.
