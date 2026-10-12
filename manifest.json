@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "PeaceOut",
+  "version": "1.0.0",
+  "description": "Hold up a peace sign and fade out of your own Google Meet video. Show it again to fade back in.",
+  "minimum_chrome_version": "111",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "toggle-vanish": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Fade out / back in on Google Meet"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["gesture.js", "content.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["mediapipe/*"],
+      "matches": ["https://meet.google.com/*"]
+    }
+  ]
+}
