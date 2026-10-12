@@ -4,10 +4,6 @@ Hold up a peace sign (✌️) and fade out of your own Google Meet video. Show i
 
 ![status](https://img.shields.io/badge/status-personal%20project-blue)
 
-| 1. show the sign | 2. you're gone | 3. that's the bit |
-|:---:|:---:|:---:|
-| ![peace sign](assets/demo-1-gesture.jpg) | ![vanished](assets/demo-2-vanished.jpg) | ![meme](assets/demo-3-meme.jpg) |
-
 ## What it does
 
 - Hooks your camera feed inside Google Meet only (no other site is touched)
