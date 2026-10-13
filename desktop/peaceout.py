@@ -54,6 +54,7 @@ class PeaceSignDetector:
         )
         self.hit_streak = 0
         self.last_fire = 0.0
+        self.armed = True  # must drop the pose once before it can fire again
 
     def _ratio(self, lm, tip, mcp):
         wrist = lm[0]
@@ -83,16 +84,20 @@ class PeaceSignDetector:
 
         if not seen:
             self.hit_streak = 0
+            self.armed = True  # hand dropped the pose, ready to fire again
             return False, dbg
 
         self.hit_streak += 1
         if cooling:
             return False, dbg + " · PEACE (cooling down)"
+        if not self.armed:
+            return False, dbg + " · PEACE (lower your hand to re-arm)"
 
         dbg += " · PEACE %d/%d" % (min(self.hit_streak, HITS_NEEDED), HITS_NEEDED)
         if self.hit_streak >= HITS_NEEDED:
             self.last_fire = now
             self.hit_streak = 0
+            self.armed = False  # won't fire again until you drop the pose
             return True, dbg
         return False, dbg
 

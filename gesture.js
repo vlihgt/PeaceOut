@@ -96,7 +96,8 @@
 
   let timer = null;
   let hitStreak = 0;
-  let lastFire = 0;         // time-based cooldown — no need to drop your hand in between
+  let lastFire = 0;
+  let armed = true;         // must drop the pose once before it can fire again
   const HITS_NEEDED = 3;    // ~3 consecutive positive frames before it counts
   const COOLDOWN_MS = 1500;
   const POLL_MS = 90;
@@ -120,18 +121,25 @@
         const seen = isPeaceSign(m);
         const now = performance.now();
         const cooling = now - lastFire < COOLDOWN_MS;
+        let peaceNote = '';
+        if (seen) {
+          if (cooling) peaceNote = ' · PEACE (cooling down)';
+          else if (!armed) peaceNote = ' · PEACE (lower your hand to re-arm)';
+          else peaceNote = ` · PEACE ${Math.min(hitStreak + 1, HITS_NEEDED)}/${HITS_NEEDED}`;
+        }
         PO.handDebug = { state: 'ready', note:
-          `hand seen · i${m.index.toFixed(2)} m${m.middle.toFixed(2)} r${m.ring.toFixed(2)} p${m.pinky.toFixed(2)}` +
-          (seen ? (cooling ? ' · PEACE (cooling down)' : ` · PEACE ${Math.min(hitStreak + 1, HITS_NEEDED)}/${HITS_NEEDED}`) : '') };
+          `hand seen · i${m.index.toFixed(2)} m${m.middle.toFixed(2)} r${m.ring.toFixed(2)} p${m.pinky.toFixed(2)}` + peaceNote };
         if (seen) {
           hitStreak++;
-          if (!cooling && hitStreak >= HITS_NEEDED) {
+          if (!cooling && armed && hitStreak >= HITS_NEEDED) {
             lastFire = now;
             hitStreak = 0;
+            armed = false;
             if (PO.toggle) PO.toggle();
           }
         } else {
           hitStreak = 0;
+          armed = true;
         }
       } else {
         hitStreak = 0;
