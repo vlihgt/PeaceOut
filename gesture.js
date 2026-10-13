@@ -103,8 +103,9 @@
   let lastFire = 0;
   let armed = true;         // must drop the pose once before it can fire again
   const HITS_NEEDED = 3;    // ~3 consecutive positive frames before it counts
-  const MISS_NEEDED = 3;    // ~3 consecutive negative frames before it re-arms (debounces flicker)
-  const COOLDOWN_MS = 1500;
+  const MISS_NEEDED = 8;    // wants a clear, deliberate drop, not just the hand relaxing
+  const COOLDOWN_MS = 3000; // comfortably longer than the fade, so cooldown alone still
+                             // blocks a refire even if the hand drifts back mid-fade
   const POLL_MS = 90;
 
   let busy = false;

@@ -29,8 +29,11 @@ import pyvirtualcam
 BG_FRAMES = 12          # frames averaged into the empty-room photo
 FADE_MS = 1200           # fade duration, matches the browser extension
 HITS_NEEDED = 3           # consecutive positive frames before a gesture counts
-MISS_NEEDED = 3           # consecutive negative frames before it re-arms (debounces flicker)
-COOLDOWN_MS = 1500        # minimum time between fires, on top of the drop-and-reshow requirement
+MISS_NEEDED = 8           # consecutive negative frames before it re-arms — wants a clear,
+                          # deliberate drop, not just the hand relaxing for a moment
+COOLDOWN_MS = 3000        # minimum time between fires — comfortably longer than FADE_MS,
+                          # so the cooldown alone still blocks a refire even if the hand
+                          # drifts back into the pose while watching the fade finish
 EXT_T = 1.2               # fingertip/knuckle distance-from-wrist ratio: extended
 CURL_T = 1.5              # ...curled — many hands don't fold ring/pinky tight
                           # to the palm for a peace sign; 1.5 still sits clearly
