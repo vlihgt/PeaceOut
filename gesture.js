@@ -84,7 +84,10 @@
   // curled. Measured as each fingertip's distance from the wrist relative
   // to its own knuckle's distance from the wrist, so it holds at any hand
   // size or camera distance.
-  const EXT_T = 1.2, CURL_T = 1.15;
+  // 1.5 still sits clearly below a fully extended finger (~1.8-2.0) for most
+  // hands, but many hands don't fold ring/pinky tight to the palm for a
+  // peace sign, so 1.15 rejected real attempts far more than it should.
+  const EXT_T = 1.2, CURL_T = 1.5;
   function peaceMetrics(lm) {
     const wrist = lm[0];
     const r = (tip, mcp) => dist(wrist, lm[tip]) / Math.max(1e-5, dist(wrist, lm[mcp]));

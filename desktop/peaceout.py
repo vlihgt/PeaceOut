@@ -32,7 +32,9 @@ HITS_NEEDED = 3           # consecutive positive frames before a gesture counts
 MISS_NEEDED = 3           # consecutive negative frames before it re-arms (debounces flicker)
 COOLDOWN_MS = 1500        # minimum time between fires, on top of the drop-and-reshow requirement
 EXT_T = 1.2               # fingertip/knuckle distance-from-wrist ratio: extended
-CURL_T = 1.15             # ...curled
+CURL_T = 1.5              # ...curled — many hands don't fold ring/pinky tight
+                          # to the palm for a peace sign; 1.5 still sits clearly
+                          # below a fully extended finger (~1.8-2.0) for most hands
 
 
 def smoothstep(t):
@@ -85,7 +87,7 @@ class PeaceSignDetector:
         lm = result.multi_hand_landmarks[0].landmark
         seen, metrics = self._is_peace_sign(lm)
         cooling = now - self.last_fire < COOLDOWN_MS
-        dbg = "hand seen · i%.2f m%.2f r%.2f p%.2f" % metrics
+        dbg = "hand seen - i%.2f m%.2f r%.2f p%.2f" % metrics
 
         if not seen:
             self.hit_streak = 0
@@ -99,11 +101,11 @@ class PeaceSignDetector:
         self.miss_streak = 0
         self.hit_streak += 1
         if cooling:
-            return False, dbg + " · PEACE (cooling down)"
+            return False, dbg + " - PEACE (cooling down)"
         if not self.armed:
-            return False, dbg + " · PEACE (lower your hand to re-arm)"
+            return False, dbg + " - PEACE (lower your hand to re-arm)"
 
-        dbg += " · PEACE %d/%d" % (min(self.hit_streak, HITS_NEEDED), HITS_NEEDED)
+        dbg += " - PEACE %d/%d" % (min(self.hit_streak, HITS_NEEDED), HITS_NEEDED)
         if self.hit_streak >= HITS_NEEDED:
             self.last_fire = now
             self.hit_streak = 0
