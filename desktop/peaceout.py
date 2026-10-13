@@ -150,7 +150,7 @@ class FadePipeline:
         cam_alpha = (1 - e) if fading_out else e
         out = cv2.addWeighted(live_frame, cam_alpha, self.bg, 1 - cam_alpha, 0)
         if t >= 1.0:
-            self.mode = "live" if fading_out else "gone"
+            self.mode = "gone" if fading_out else "live"
         return out
 
     def capture_bg(self, cap, w, h):
