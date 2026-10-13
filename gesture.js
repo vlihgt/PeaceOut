@@ -96,9 +96,11 @@
 
   let timer = null;
   let hitStreak = 0;
+  let missStreak = 0;
   let lastFire = 0;
   let armed = true;         // must drop the pose once before it can fire again
   const HITS_NEEDED = 3;    // ~3 consecutive positive frames before it counts
+  const MISS_NEEDED = 3;    // ~3 consecutive negative frames before it re-arms (debounces flicker)
   const COOLDOWN_MS = 1500;
   const POLL_MS = 90;
 
@@ -130,6 +132,7 @@
         PO.handDebug = { state: 'ready', note:
           `hand seen · i${m.index.toFixed(2)} m${m.middle.toFixed(2)} r${m.ring.toFixed(2)} p${m.pinky.toFixed(2)}` + peaceNote };
         if (seen) {
+          missStreak = 0;
           hitStreak++;
           if (!cooling && armed && hitStreak >= HITS_NEEDED) {
             lastFire = now;
@@ -139,10 +142,15 @@
           }
         } else {
           hitStreak = 0;
-          armed = true;
+          // debounced: a single flickered frame shouldn't count as "dropped
+          // the pose" — needs a few consecutive misses, same as hits do
+          missStreak++;
+          if (missStreak >= MISS_NEEDED) armed = true;
         }
       } else {
         hitStreak = 0;
+        missStreak++;
+        if (missStreak >= MISS_NEEDED) armed = true;
         PO.handDebug = { state: 'ready', note: 'no hand in frame' };
       }
     } catch (e) {

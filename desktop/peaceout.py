@@ -29,7 +29,8 @@ import pyvirtualcam
 BG_FRAMES = 12          # frames averaged into the empty-room photo
 FADE_MS = 1200           # fade duration, matches the browser extension
 HITS_NEEDED = 3           # consecutive positive frames before a gesture counts
-COOLDOWN_MS = 1500        # time-based re-arm, no need to drop your hand
+MISS_NEEDED = 3           # consecutive negative frames before it re-arms (debounces flicker)
+COOLDOWN_MS = 1500        # minimum time between fires, on top of the drop-and-reshow requirement
 EXT_T = 1.2               # fingertip/knuckle distance-from-wrist ratio: extended
 CURL_T = 1.15             # ...curled
 
@@ -53,6 +54,7 @@ class PeaceSignDetector:
             min_tracking_confidence=0.6,
         )
         self.hit_streak = 0
+        self.miss_streak = 0
         self.last_fire = 0.0
         self.armed = True  # must drop the pose once before it can fire again
 
@@ -75,6 +77,9 @@ class PeaceSignDetector:
         result = self.hands.process(rgb_frame)
         if not result.multi_hand_landmarks:
             self.hit_streak = 0
+            self.miss_streak += 1
+            if self.miss_streak >= MISS_NEEDED:
+                self.armed = True
             return False, "no hand in frame"
 
         lm = result.multi_hand_landmarks[0].landmark
@@ -84,9 +89,14 @@ class PeaceSignDetector:
 
         if not seen:
             self.hit_streak = 0
-            self.armed = True  # hand dropped the pose, ready to fire again
+            # debounced: a single flickered frame shouldn't count as "dropped
+            # the pose" — needs a few consecutive misses, same as hits do
+            self.miss_streak += 1
+            if self.miss_streak >= MISS_NEEDED:
+                self.armed = True
             return False, dbg
 
+        self.miss_streak = 0
         self.hit_streak += 1
         if cooling:
             return False, dbg + " · PEACE (cooling down)"
