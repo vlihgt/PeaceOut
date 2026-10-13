@@ -184,6 +184,7 @@ def main():
     detector = PeaceSignDetector()
     pipeline = FadePipeline()
 
+    print(f">>> PeaceOut build check: COOLDOWN_MS={COOLDOWN_MS} MISS_NEEDED={MISS_NEEDED} CURL_T={CURL_T} <<<")
     print(f"Camera {args.camera}: {w}x{h}")
     print("Virtual camera starting — pick 'OBS Virtual Camera' in Zoom/Discord/Teams.")
     print("Keys: c = capture empty room, v = manual vanish/return, q = quit")
