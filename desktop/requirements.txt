@@ -1,0 +1,11 @@
+# Verified on Python 3.12 / macOS arm64.
+#
+# mediapipe 0.10.30+ ships macOS wheels that abort on startup on some
+# machines, so mediapipe is held at the last build known to work here.
+# That build needs numpy<2, and opencv 5 needs numpy>=2, so opencv is
+# pinned below <5 too — unpin one and you have to unpin all three.
+mediapipe==0.10.21
+numpy<2
+opencv-python<5
+protobuf>=4.25.3,<5
+pyvirtualcam
